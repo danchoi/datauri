@@ -26,9 +26,12 @@ isInlineImg = isElem
 
 extractImg = 
     processAttrl (
-        (changeAttrValue . const $< createImage))
+        (changeAttrValue . const $< createImage)
+      )
+
 
 createImage = 
+    getAttrValue "src" >>>
     changeUserState (\x imgs -> (Image x ""):imgs ) 
 
     
