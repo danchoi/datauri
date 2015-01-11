@@ -32,11 +32,14 @@ extractImg =
 
 
 -- We are on the src attribute node at this point, so the children is the src value
+createImage :: IOSLA (XIOState ImgState) XmlTree String
 createImage = 
-    xshow getChildren >>>
-    changeUserState (\x imgs -> (Image x ""):imgs )  >>>
-    arr ("TEST" ++ )
+    (saveImg $< xshow getChildren)
+    >>> changeUserState (\x imgs -> (Image x ""):imgs )
 
+
+saveImg :: String -> IOSLA (XIOState ImgState) XmlTree String
+saveImg string = arrIO0 (putStrLn "TEST" >> return "TESTFILE")
 
     
 
