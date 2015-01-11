@@ -35,11 +35,16 @@ extractImg =
 createImage :: IOSLA (XIOState ImgState) XmlTree String
 createImage = 
     (saveImg $< xshow getChildren)
-    >>> changeUserState (\x imgs -> (Image x ""):imgs )
+    -- >>> changeUserState (\x imgs -> (Image x ""):imgs )
 
 
 saveImg :: String -> IOSLA (XIOState ImgState) XmlTree String
-saveImg string = arrIO0 (putStrLn "TEST" >> return "TESTFILE")
+saveImg string = 
+    -- in real app, process the data URI string and save IMG to DB
+    arrIO0 (do 
+        putStrLn "Process this data and return a new URL" 
+        putStrLn string
+        return "THIS URL IS RETURN AFTER IMAGE IS CREATED IN DB")
 
     
 
@@ -51,6 +56,6 @@ main = do
                 >>> extractInlineImages
                 >>> writeDocument [withIndent yes ,withOutputEncoding utf8 ] "-"
               ) (initialState []) undefined
-  print $ xioUserState s
+  -- print $ xioUserState s
   return ()
  
