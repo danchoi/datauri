@@ -27,12 +27,15 @@ isInlineImg = isElem
 extractImg = 
     processAttrl (
         (changeAttrValue . const $< createImage)
+        `when` hasName "src"
       )
 
 
 createImage = 
-    getAttrValue "src" >>>
-    changeUserState (\x imgs -> (Image x ""):imgs ) 
+    xshow getChildren >>>
+    changeUserState (\x imgs -> (Image x ""):imgs )  >>>
+    arr ("TEST" ++ )
+
 
     
 
