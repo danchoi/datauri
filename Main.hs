@@ -31,6 +31,7 @@ extractImg =
       )
 
 
+-- We are on the src attribute node at this point, so the children is the src value
 createImage = 
     xshow getChildren >>>
     changeUserState (\x imgs -> (Image x ""):imgs )  >>>
